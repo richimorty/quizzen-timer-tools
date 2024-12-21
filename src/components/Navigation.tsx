@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Brain } from "lucide-react";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -12,7 +12,6 @@ const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const links = [
-    { href: "/", label: "Home" },
     { href: "/manage", label: "Question Management" },
     { href: "/take-quiz", label: "Take Quiz" },
     { href: "/results", label: "Results" },
@@ -39,29 +38,32 @@ const Navigation = () => {
             </>
           ) : (
             <>
-              <div className="flex space-x-8">
+              <Link
+                to="/"
+                className={cn(
+                  "flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200",
+                  location.pathname === "/" && "text-blue-600 dark:text-blue-400"
+                )}
+              >
+                <Brain className="w-6 h-6" />
+              </Link>
+              <div className="flex items-center space-x-8">
                 {links.map((link) => (
                   <Link
                     key={link.href}
                     to={link.href}
                     className={cn(
-                      "relative inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors duration-200",
+                      "relative inline-flex items-center px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full",
                       location.pathname === link.href
-                        ? "text-blue-600 dark:text-blue-400"
+                        ? "bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400"
                         : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
                     )}
                   >
-                    {location.pathname === link.href && (
-                      <motion.div
-                        layoutId="underline"
-                        className="absolute left-0 right-0 bottom-0 h-0.5 bg-blue-600 dark:bg-blue-400"
-                      />
-                    )}
                     {link.label}
                   </Link>
                 ))}
+                <ThemeToggle />
               </div>
-              <ThemeToggle />
             </>
           )}
         </div>
@@ -74,6 +76,19 @@ const Navigation = () => {
             exit={{ opacity: 0, y: -20 }}
             className="py-4 space-y-2"
           >
+            <Link
+              to="/"
+              onClick={() => setIsMenuOpen(false)}
+              className={cn(
+                "flex items-center space-x-2 px-4 py-2 text-base font-medium rounded-md transition-colors",
+                location.pathname === "/"
+                  ? "bg-blue-50 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400"
+                  : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
+              )}
+            >
+              <Brain className="w-5 h-5" />
+              <span>Home</span>
+            </Link>
             {links.map((link) => (
               <Link
                 key={link.href}
