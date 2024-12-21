@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 import QuestionManagement from "./pages/QuestionManagement";
 import TakeQuiz from "./pages/TakeQuiz";
 import Results from "./pages/Results";
@@ -20,7 +21,8 @@ const App = () => (
           <Navigation />
           <div className="container mx-auto px-4 py-8">
             <Routes>
-              <Route path="/" element={<QuestionManagement />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/manage" element={<QuestionManagement />} />
               <Route path="/take-quiz" element={<TakeQuiz />} />
               <Route path="/results" element={<Results />} />
             </Routes>
